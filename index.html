@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Awards FormS</title>
+    </head>
+    <body>
+        <h2>Select Class</h2>
+        <form id="classForm">
+            <select id="selectClass">
+              <option>Select Class</option>
+            </select>
+          </form>
+
+        <h2>Select Student</h2>
+        <form id="studentForm">
+            <select id="selectStudent">
+              <option>Select Student</option>
+            </select>
+          </form>
+          <h2> </h2>
+          <button type="submit" onclick="sendData()">Submit</button>
+          <h2 id="submissionStatus"></h2>
+        
+        <script>
+            //read in the list of students- included for convience, just need the array
+                let allText;
+                let studentList;
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", "studentList.txt", true);
+                rawFile.onreadystatechange = function() {
+                if (rawFile.readyState === 4) {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                    allText = rawFile.responseText;
+                    studentList = allText.split(/\r?\n/);
+                    //append Students to the dd menu
+                        var dropdown = document.getElementById("selectStudent");
+
+                        for (var i = 0; i < studentList.length; ++i) 
+                        {
+                            var nextOption = new Option(studentList[i], studentList[i]);
+                            nextOption.setAttribute("id", studentList[i]);
+                                //remove after testing
+                                //console.log(nextOption.getAttribute("id"));
+                            dropdown[dropdown.length] = nextOption;
+                        }
+                    }
+                }
+                }
+                rawFile.send();
+              
+                
+
+///////////
+
+                let allText1;
+                let classList;
+                var rawFile1 = new XMLHttpRequest();
+                rawFile1.open("GET", "classList.txt", true);
+                rawFile1.onreadystatechange = function() {
+                if (rawFile1.readyState === 4) {
+                    if(rawFile1.status === 200 || rawFile1.status == 0)
+                    {
+                    allText1 = rawFile1.responseText;
+                    classList = allText1.split(/\r?\n/);
+                    //append classes to the dd menu
+                        var dropdown1 = document.getElementById("selectClass");
+
+                        for (var i = 0; i < classList.length; ++i) 
+                        {
+                            var nextOption1 = new Option(classList[i], classList[i]);
+                            nextOption1.setAttribute("id", classList[i]);
+                                //remove after testing
+                                //console.log(nextOption.getAttribute("id"));
+                            dropdown1[dropdown1.length] = nextOption1;
+                        }
+                    }
+                }
+                }
+                rawFile1.send();
+
+///////////
+
+                        
+                function sendData()
+                {
+                    var selectedStudentResult = document.getElementById("selectStudent").value;
+                    var selectedClassResult = document.getElementById("selectClass").value;
+                    //Send the data- I think this should go last, currently toSend is a filler, but replace with an object
+                         let toSend = 
+                            {
+                                name: selectedStudentResult,
+                                class: selectedClassResult
+                            };
+                            const jsonString = JSON.stringify(toSend);
+                            console.log(jsonString);
+                            const xhr = new XMLHttpRequest();
+
+                            xhr.open("POST", "recieve.php");
+                            xhr.setRequestHeader("Content-Type", "application/json");
+                            xhr.send(jsonString);
+
+                    document.getElementById("submissionStatus").innerHTML = "Submission Recieved!";
+                 }
+            
+        </script>
+    </body>
+</html>
