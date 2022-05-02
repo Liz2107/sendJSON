@@ -1,20 +1,52 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Awards FormS</title>
+        <title>Awards Form</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap" rel="stylesheet"> 
+        <style>
+            nav
+            {
+                text-align: center;
+                color: white;
+            }
+            body
+            {
+                background-color: #002b5c;
+            }
+            h2
+            {
+                color: #a38a53;
+                font-family: 'Radio Canada', sans-serif;
+            }
+            form
+            {
+                background-color: #3d3d3d;
+                color: white;
+                display: inline-block;
+            }
+            .ddContent
+            {
+                background-color: darkgray;
+                color: white;
+                font-family: 'Radio Canada', sans-serif;
+            }
+        </style>
+        
     </head>
+    <nav><h1>AWARDS FORM</h1></nav>
     <body>
         <h2>Select Class</h2>
         <form id="classForm">
-            <select id="selectClass">
-              <option>Select Class</option>
+            <select id="selectClass" required>
             </select>
           </form>
 
         <h2>Select Student</h2>
         <form id="studentForm">
-            <select id="selectStudent">
-              <option>Select Student</option>
+            <select id="selectStudent" required>
             </select>
           </form>
           <h2> </h2>
@@ -40,6 +72,7 @@
                         {
                             var nextOption = new Option(studentList[i], studentList[i]);
                             nextOption.setAttribute("id", studentList[i]);
+                            nextOption.setAttribute("class", "ddContent");
                                 //remove after testing
                                 //console.log(nextOption.getAttribute("id"));
                             dropdown[dropdown.length] = nextOption;
@@ -70,6 +103,7 @@
                         {
                             var nextOption1 = new Option(classList[i], classList[i]);
                             nextOption1.setAttribute("id", classList[i]);
+                            nextOption1.setAttribute("class", "ddContent");
                                 //remove after testing
                                 //console.log(nextOption.getAttribute("id"));
                             dropdown1[dropdown1.length] = nextOption1;
@@ -86,7 +120,7 @@
                 {
                     var selectedStudentResult = document.getElementById("selectStudent").value;
                     var selectedClassResult = document.getElementById("selectClass").value;
-                    //Send the data- I think this should go last, currently toSend is a filler, but replace with an object
+                    //Send the data- I think this should go last
                          let toSend = 
                             {
                                 name: selectedStudentResult,
